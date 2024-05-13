@@ -36,7 +36,7 @@ class MedicalRecordController extends Controller
     public function show($id)
     {
         $MedicalRecord= MedicalRecord::where('id', $id)->get();
-        return response()->json($MedicalRecord, 200);
+        return $MedicalRecord;
     }
 
     public function update(Request $request, $id)

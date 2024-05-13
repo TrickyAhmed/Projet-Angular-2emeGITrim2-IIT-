@@ -34,13 +34,14 @@ class PatientController extends Controller
         return response()->json($Patient, 201);
     }
 
-    public function show( $id)
+    public function show($id)
     {
-        $Patient= Patient::where('id', $id)->get();
-        return response()->json($Patient, 200);
+        $patient = Patient::find($id);
+        return $patient;
     }
+    
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'first_name' => 'required',
@@ -51,13 +52,19 @@ class PatientController extends Controller
             'phone' => 'required',
             'email' => 'required',
         ]);
-
+    
         $Patient = Patient::find($id);
+    
+        if (!$Patient) {
+            // Patient with the given ID was not found
+            return response()->json(['error' => 'Patient not found'], 404);
+        }
     
         $Patient->update($validatedData);
     
         return response()->json('Patient record updated successfully!');
     }
+    
 
     public function destroy( $id)
     {
