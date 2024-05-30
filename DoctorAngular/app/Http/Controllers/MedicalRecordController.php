@@ -35,7 +35,7 @@ class MedicalRecordController extends Controller
 
     public function show($id)
     {
-        $MedicalRecord= MedicalRecord::where('id', $id)->get();
+        $MedicalRecord= MedicalRecord::find($id);
         return $MedicalRecord;
     }
 
@@ -49,10 +49,8 @@ class MedicalRecordController extends Controller
             'diagnosis' => 'required',
             'prescription' => 'required',
             'notes' => 'required',
-            // Add any other validation rules here
+        
         ]);
-    
-        // Find the medical record by its ID
         $medicalRecord = MedicalRecord::find($id);
     
         // Update the medical record with the validated data
